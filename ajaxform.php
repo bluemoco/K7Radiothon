@@ -45,7 +45,7 @@ if($_REQUEST['login'])
 		   else
 		   {
 			    $res['status'] = "Failed";
-				$res['msg'] = "Login Faild";   
+				$res['msg'] = "Login Failed";   
 				echo json_encode($res);
 				exit;
 		   }
@@ -114,7 +114,7 @@ if($_REQUEST['bid'])
    $q =  mysql_query("insert into `bids`(AucID,Amount,TimeStamp,ProxyID,ReceiptInfo,Anonymous) 
 		  values('".$_SESSION['bid']."','".$_REQUEST['Amount']."','".date("Y-m-d H:i:s")."','".$_SESSION['id']."','".$_SESSION['cid']."','".$_REQUEST['Anonymous']."')");
 		 		   
-   echo "bid added Successfully";	
+   echo "Bid added Successfully";	
 	
 }
 

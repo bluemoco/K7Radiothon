@@ -50,7 +50,7 @@ $(document).ready(function(){
 		  <th>Telephone</th>
 		  <th>User Name</th>
 		  <th>Town</th>
-		  <th>Bid Amount</th>
+		  <th>Donation Amount</th>
 		</tr>
 	  </thead>
 	  <tbody>

@@ -2,7 +2,7 @@
 	include("common.php"); 
 	include("session_active.php"); 
 	include('Imageresize.php'); 
-$str = getAllDonnor(); 
+$str = getAllDonnor();
 
 if(isset($_POST['DonorID']))
 {

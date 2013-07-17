@@ -149,14 +149,14 @@ function checkemail(strMail){
   </div>
   
   <div class="control-group">
-    <label class="control-label" for="inputPassword">Street No.</label>
+    <label class="control-label" for="inputPassword">COMPANY NAME.</label>
     <div class="controls">
       <input type="text" id="StreetName" name="StreetName"  value="<?php echo $StreetName; ?>">
     </div>
   </div>
   
   <div class="control-group">
-    <label class="control-label" for="inputPassword">Home No.</label>
+    <label class="control-label" for="inputPassword">Home/Office Tel Nr.</label>
     <div class="controls">
       <input type="text" id="HouseNumber" name="HouseNumber"  value="<?php echo $HouseNumber; ?>" >
     </div>

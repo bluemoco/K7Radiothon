@@ -10,10 +10,22 @@
 	
 	//$client = mysql_query("select a.* , b.* , MAX(b.Amount) as amnt from auctionitems as a LEFT JOIN bids as b ON a.AucID = b.AucID WHERE a.AucID = '".$_SESSION['bid']."' Group by a.AucID");
 	
-	$client = mysql_query("select a.* , b.* , c.* , t.* , MAX(b.Amount) as amnt from auctionitems as a , bids as b , clientinfo as c , town as t 
-	WHERE a.AucID = b.AucID AND b.ReceiptInfo = c.index AND c.TownID = t.TownID  AND a.AucID = '".$_SESSION['bid']."' Group by a.AucID");
+	$client = mysql_query("select a.* , b.* , c.* , t.* , b.Amount as amnt from auctionitems as a , bids as b , clientinfo as c , town as t 
+	WHERE a.AucID = b.AucID AND b.ReceiptInfo = c.`index` AND c.TownID = t.TownID  AND a.AucID = '".$_SESSION['bid']."' ORDER BY b.Amount DESC LIMIT 1");
 	
-	$arr = mysql_fetch_assoc($client);
+	$cnt = mysql_num_rows($client);
+	
+	if($cnt == 0 )
+	{
+		$client = mysql_query("select a.* , b.* , c.* , t.* , b.Amount as amnt from auctionitems as a , bids as b , clientinfo as c , town as t 
+		WHERE c.TownID = t.TownID  AND a.AucID = '".$_SESSION['bid']."' ORDER BY b.Amount DESC LIMIT 1");
+		$arr = mysql_fetch_assoc($client);
+		
+	}
+	else
+	{	
+		$arr = mysql_fetch_assoc($client);
+	}
 	
 	
 ?>
@@ -48,7 +60,7 @@ function chk()
 			     dataType: 'html',
   			     success:   function(data)
 				 {				
-				 	if(data == "bid added Successfully")
+				 	if(data == "Bid added Successfully")
 					{						
 						//window.setTimeout("location='bidlist.php'",2500);
 						
@@ -87,13 +99,13 @@ function chk()
   	
   <div class="control-group">
     <label class="control-label" for="inputEmail">Current Bid: </label>
-    <div class="controls">$<?php echo $arr['amnt']; ?>
+    <div class="controls"><?php if($cnt != 0 ) { echo "$".$arr['amnt']; } ?>
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="inputPassword">Highest Bidder: </label>
     <div class="controls">
-       <?php echo $arr['FirstName'] . " " .$arr['LastName']; ?>
+       <?php if($cnt != 0 ) { echo $arr['FirstName'] . " " .$arr['LastName']; } ?>
     </div>
   </div>
   
@@ -150,6 +162,8 @@ function chk()
     <div class="span5" style="border:1px solid #CCCCCC; line-height:15px">
    
 	   <h1 style="text-align:center">Highest Bidder details</h1><hr>
+		<?php if($cnt != 0 ) { ?>
+		
 		<div class="text-center">
 		   <h2 class="text-error"><?php echo $arr['FirstName'] . " " .$arr['LastName']; ?></h2>
 		   <p class="text-info"><?php echo $arr['TownName']; ?></p>
@@ -157,7 +171,7 @@ function chk()
 		   <p class="text-info"><?php echo $arr['Email']; ?></p>
 		   
 		   <p> <?php echo ($_SESSION['an'] == 1)?'<em>Wishes to stay anonymous</em>':''; ?> </p>
-			
+		 <?php } ?>	
            <div class="clearfix"></div>
 			
 		 </div>
