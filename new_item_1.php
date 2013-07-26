@@ -257,16 +257,6 @@ $(document).ready(function(){
 </div>
 <!--/footer-->
 
-<!--Feet-->
-
-<div class="feet">
-<div class="container">
-<p class="copy">Company Name Goes Here.. Copyright 2013. All Rights Researved. </p>
-
-</div>
-</div>
-
-<!--/Feet-->
 
     <script src="js/bootstrap.min.js"></script>                 
 </body>

@@ -41,17 +41,21 @@ body { line-height:0px;}
    </div>
    -->
    <a  class="btn btn-large span2 btn-inverse" href="donation_bid.php" id="btn3">Donation</a>
-   <a  class="btn btn-large span2 btn-inverse" href="challenge_bid.php" id="btn33">Challenges</a>
+<!--   <a  class="btn btn-large span2 btn-inverse" href="challenge_bid.php" id="btn33">Challenges</a>-->
 	  <?php if(isset($_SESSION['sadmin'])) { ?>
    <div class="btn-group  span2">
 		<a class="btn btn-inverse dropdown-toggle btn-large span12" id="btn4" data-toggle="dropdown" href="#">Admin <span class="caret"></span></a>
 		<ul class="dropdown-menu drp2">
-		  <li><a href="placebid.php">Manage User</a></li>
-		  <li><a href="placebid_admin.php">Manage Items</a></li>                 
-		  <li><a href="new_system_user.php?admin=admin">Manage System User</a></li>                 
+		  <li><a href="placebid.php">Manage Donors</a></li>
+		  <li><a href="placebid_admin.php">Manage Items</a></li>                            	  
+                  <li><a href="system_user.php">Edit System Users</a></li>             
+                  <li><a href="new_system_user.php?admin=admin">Create System User</a></li>
+                  <li><a href="reports-generation.php">Reports Generation</a></li>
 		</ul>
     </div>
-	   <?php } ?>
+	   <?php } else { ?>
+   <a  class="btn btn-large span2 btn-inverse" href="placebid_admin.php" id="btn33">Manage Items</a> 
+   <? } ?>
 	   
 	   
         <!--<a  class="btn btn-inverse btn-large span2" href="#">Dashboard</a>-->

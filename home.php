@@ -50,6 +50,7 @@ $(document).ready(function(){
 		  <th>Telephone</th>
 		  <th>User Name</th>
 		  <th>Town</th>
+                  <th>User Activity</th>
 		</tr>
 	  </thead>
 	  <tbody>
@@ -72,11 +73,13 @@ $(document).ready(function(){
 			$o__pager = new pager('clientinfo', $page, NUM_PAGE ,array(), $q);
 			$client = $o__pager->getQuery();			 
 		 while ($arrclient = mysql_fetch_assoc($client)):
+                   
 	 ?> 
 	 	<tr>	
 		  <td><a href="itemlist.php?id=<?php echo $arrclient['index']; ?>"><?php echo $arrclient['Phone']; ?></a></td>		
 		  <td><?php echo $arrclient['FirstName']. " " . $arrclient['LastName']; ?></td>
 		  <td><?php echo $arrclient['TownName']; ?></td>
+                  <td><a href="user-profile.php?id=<?php echo $arrclient['index'];; ?>" ><img src="images/mag_glass.png" ></a></td>
 		</tr>
 	 <?php endwhile; ?>	
 	 
@@ -99,16 +102,6 @@ $(document).ready(function(){
   
 	<?php include('footer.php'); ?>
 
-<!--Feet-->
-
-<div class="feet">
-<div class="container">
-<p class="copy">Company Name Goes Here.. Copyright 2013. All Rights Researved. </p>
-
-</div>
-</div>
-
-<!--/Feet-->
 
 
 

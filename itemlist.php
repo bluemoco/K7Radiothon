@@ -50,7 +50,20 @@ $(document).ready(function(){
    <!--form-->
    <div class="input-append" style="margin-top:70px;">
    <form name="search" action="" method="get">
-  <input class="input-xxlarge" id="phone" name="phone" type="text" placeholder="Search Telephone Here..." value="<?php echo (isset($_GET['phone']) ? $_GET['phone'] : '') ?>">
+   <input type="hidden" name="id" value="<?=$_GET['id']; ?>" />
+  <input class="input" id="item_id" name="item_id" type="text" placeholder="Item ID Here..." value="<?php echo (isset($_GET['item_id']) ? $_GET['item_id'] : '') ?>">&nbsp;&nbsp;&nbsp;
+  <select name="town" id="town" >
+  <option value="">--Select Town--</option>
+  <?php 
+  $o_q = mysql_query('SELECT * FROM town');
+  while($town = mysql_fetch_assoc($o_q)):
+  ?>
+  
+  <option value="<?php echo $town['TownID'] ?>" <?php echo ($town['TownID'] == $_GET['town']) ?"selected" :"" ?>><?php echo $town['TownName'] ?></option>
+  <?php endwhile; ?>
+  </select>
+    
+	  <input class="input" id="item" name="item" type="text" placeholder="Search Item Here..." value="<?php echo (isset($_GET['item']) ? $_GET['item'] : '') ?>">&nbsp;&nbsp;&nbsp;
   <button class="btn btn-inverse" type="submit"><img src="images/find.png" alt="find"></button>
   </form>
 </div>
@@ -65,6 +78,7 @@ $(document).ready(function(){
    <table class="table table-striped table-hover">
 	  <thead>
 		<tr>
+                  <th>Item ID</th>
 		  <th>Telephone</th>
 		  <th>Item Name</th>
 		  <th>Town</th>
@@ -81,10 +95,18 @@ $(document).ready(function(){
 				$page = 1;
 			}
 					$q = "select a.*, t.* from auctionitems as a LEFT JOIN town as t ON a.TownID = t.TownID ";
-			$qurey_string = "";
-			if(isset($_GET['phone'])) {
-				$q .= "WHERE a.TelephoneNumber like '%".$_GET['phone']."%'";
-				$qurey_string = "?phone=".$_GET['phone'];
+			$qurey_string = "?id=".$_GET['id'];
+			if(isset($_GET['item_id']) && trim($_GET['item_id']) != "") {
+				$q .= "WHERE a.AucID = '".$_GET['item_id']."'";
+				$qurey_string.= ((substr_count($qurey_string, '?') == 1)  ? "&": "?" )."item_id=".$_GET['item_id'];
+			} 
+			if(isset($_GET['item']) && trim($_GET['item']) != "") {
+				$q .=( (substr_count($q, 'WHERE') == 1)  ? " AND ": "WHERE " )."a.ItemName like '%".$_GET['item']."%'";
+				$qurey_string .= ((substr_count($qurey_string, '?') == 1)  ? "&": "?" )."item=".$_GET['item'];
+			} 
+			if(isset($_GET['town']) && trim($_GET['town']) != "") {
+				$q .= ((substr_count($q, 'WHERE') == 1)  ? " AND ": "WHERE " )."t.TownID = ".$_GET['town'];
+				$qurey_string .= ((substr_count($qurey_string, '?') == 1)  ? "&": "?" )."town=".$_GET['town'];
 			} 
 			$q .= " ORDER BY a.AucID DESC";
 
@@ -104,7 +126,8 @@ $(document).ready(function(){
 	}
 	 ?> 
 	 	<tr>
-		  <td><a href="new_bid.php?bid=<?php echo $arrclient['AucID']; ?>"><?php echo $arrclient['TelephoneNumber']; ?></a></td>
+                  <td><a href="new_bid.php?bid=<?php echo $arrclient['AucID']; ?>"><?php echo $arrclient['AucID']; ?></a></td>
+		  <td><?php echo $arrclient['TelephoneNumber']; ?></td>
 		  <td><?php echo $arrclient['ItemName']; ?></td>
 		  <td><?php echo $arrclient['TownName']; ?></td>	   
 		  <td>$<?php echo $arrclient['ReservePrice']; ?></td>
@@ -137,16 +160,6 @@ $(document).ready(function(){
     
 	<?php include('footer.php'); ?>
 
-<!--Feet-->
-
-<div class="feet">
-<div class="container">
-<p class="copy">Company Name Goes Here.. Copyright 2013. All Rights Researved. </p>
-
-</div>
-</div>
-
-<!--/Feet-->
 
 
 

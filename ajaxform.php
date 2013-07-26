@@ -1,6 +1,7 @@
 <?php
 //include('phpmailer/class.phpmailer.php');
 include("common.php");
+ include("session_active.php");
 
 if($_REQUEST['login'])
 {
@@ -44,7 +45,7 @@ if($_REQUEST['login'])
 		   }
 		   else
 		   {
-			    $res['status'] = "Failed";
+                                $res['status'] = "Failed";
 				$res['msg'] = "Login Failed";   
 				echo json_encode($res);
 				exit;
@@ -87,11 +88,128 @@ if($_REQUEST['user'])
 	   }
 	   else
 	   {
-		   echo "Thia User is already added";
+		   echo "The User is already added";
 	   }
 	}
 }
 
+
+if($_REQUEST['systemuser'])
+{
+   if($_REQUEST['hdnaction'] == 'Update')
+   { 
+  	 $q = mysql_query("UPDATE admin SET username = '".$_REQUEST['Username']."', password = '".$_REQUEST['Password']."', status = '".$_REQUEST['Status']."' 
+             WHERE `id` = '".$_REQUEST['userid']."'");
+		
+	 echo "User updated Successfully";
+   }
+   else
+   {
+	
+	   $qry = mysql_query("Select * from admin where username = '".$_REQUEST['Username']."'");
+	   $cnt = mysql_num_rows($qry);
+	   
+	   if($cnt == 0)
+	   {
+  		 $q =  mysql_query("insert into `admin`(username,password,status) 
+		  values('".$_REQUEST['Username']."','".$_REQUEST['Password']."','".$_REQUEST['Status']."')");
+		 
+		  echo "User added Successfully";	
+		  
+	   }
+	   else
+	   {
+		   echo "The User is already added";
+	   }
+	}
+}
+
+if($_REQUEST['recovernote'])
+{
+    $q =  mysql_query("insert into `notes`(ProxyID,ActivityType,ActivityID,Note,timestamp) values
+        (".$_REQUEST['proxyId'].",'".$_REQUEST['activityType']."','".$_REQUEST['activityId']."','".$_REQUEST['recoverNote']."','".date('Y-m-d H:i:s')."')") or die(mysql_error());
+     echo "Note added Successfully";	
+	
+}
+
+
+if($_REQUEST['recoverinfo'])
+{
+    
+    
+    $qry = mysql_query("Select * from mneyrecovrycontactlog where ActivityType = '".$_REQUEST['activityType']."' and
+        ActivityID='".$_REQUEST['activityId']."'");
+    $cnt = mysql_num_rows($qry);
+    $userid=mysql_fetch_array($qry);
+    if($cnt == 0)
+    {
+    $q =  mysql_query("insert into `mneyrecovrycontactlog`(ActivityType,ActivityID,Notes,TimeStamp,TelephoneNumber,ReceiptNo,ModeOfContact,ProxyID) values
+        ('".$_REQUEST['activityType']."','".$_REQUEST['activityId']."','".$_REQUEST['note']."','".date('Y-m-d H:i:s')."'
+            ,'".$_REQUEST['phone']."','".$_REQUEST['receptNumber']."','".$_REQUEST['contactMode']."','".$_REQUEST['proxyid']."'
+               )");
+    
+    if($_REQUEST['moneyRecover']=='moneyWritten')
+    {
+        //$ContactEmail = "ravibthakkar@gmail.com";
+
+        $to = "steveamillion@gmail.com";
+        //$to = $ContactEmail;
+        $subject = "We could not recover ". $_REQUEST['activityType']." - ".$_REQUEST['activityId'];
+        $header = "from: $ContactEmail";
+        $messages = "\r\n";
+        $messages.="Hello Admin, we could not recover ";
+        $messages.=$_REQUEST['activityType']." - ".$_REQUEST['activityId'];
+        $messages.="\r\nhttp://k7radiothon.com/dev/recover-activity.php?id=".$_REQUEST['activityId']."&activity=".$_REQUEST['activityType'];
+
+        $messages.="Message: $Message        \r\n";
+        $messages.="\r\n";
+        $sentmail = mail($to, $subject, $messages, $header);
+    }
+    $activity=$_REQUEST['activityType'];
+    switch ($activity)
+    {
+    case "Bid":
+      $tablename="bids";
+      $tblId="BidID";
+      break;
+    case "Pledge":
+      $tablename="pledgechallenge";
+      $tblId="ChallengeID";
+      break;
+    case "Donation":
+      $tablename="pledges";
+      $tblId="PledgeID";
+      break;
+    }
+    if($_REQUEST['moneyRecover']=='moneyRecover')
+        $moneyRecover=1;
+    else
+        $moneyRecover=0;
+    
+    if($_REQUEST['moneyRecover']=='moneyWritten')
+        $moneyWritten=1;
+    else
+        $moneyWritten=0;
+    
+    $updateQuery=  mysql_query("UPDATE ".$tablename."
+SET MoneyWrittenOff='".$moneyWritten."', MoneyRecovered='".$moneyRecover."'
+WHERE ".$tblId."=".$_REQUEST['activityId']);
+     echo "Recovery info added Successfully";	
+    }
+ else {
+      $q =  mysql_query("UPDATE mneyrecovrycontactlog set ActivityType='".$_REQUEST['activityType']."',
+          ActivityID='".$_REQUEST['activityId']."',
+          Notes='".$_REQUEST['note']."',
+          TimeStamp='".date('Y-m-d H:i:s')."',
+          TelephoneNumber='".$_REQUEST['phone']."',
+          ReceiptNo='".$_REQUEST['receptNumber']."',
+          ModeOfContact='".$_REQUEST['contactMode']."',
+          ProxyID='".$_REQUEST['proxyid']."'
+          where MoneyRecoveryId =".$userid['$userid']);
+      
+        echo "Recovery info added Successfully";	
+    }
+}
 
 if($_REQUEST['proxy'])
 {
@@ -114,9 +232,10 @@ if($_REQUEST['bid'])
    $q =  mysql_query("insert into `bids`(AucID,Amount,TimeStamp,ProxyID,ReceiptInfo,Anonymous) 
 		  values('".$_SESSION['bid']."','".$_REQUEST['Amount']."','".date("Y-m-d H:i:s")."','".$_SESSION['id']."','".$_SESSION['cid']."','".$_REQUEST['Anonymous']."')");
 		 		   
-   echo "Bid added Successfully";	
+   echo "Bid Placed Successfully";	
 	
 }
+
 
 
 if($_REQUEST['pledge'])

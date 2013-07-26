@@ -3,7 +3,8 @@
 	include("session_active.php"); 
 	include('Imageresize.php'); 
 $str = getAllDonnor();
-
+$startprice=0;
+$Photo="logo.png";
 if(isset($_POST['DonorID']))
 {
 	$ItemName = $_REQUEST['ItemName'];
@@ -49,6 +50,11 @@ if(isset($_POST['DonorID']))
 	{
 		$msg = "Enter All Fields!";			
 	}
+} else {
+    $qry = mysql_query("Select * from clientinfo as c ,  town as t WHERE c.TownID = t.TownID AND c.`index` ='".$_SESSION['cid']."'");
+    $row = mysql_fetch_array($qry);		
+	$TelephoneNumber=$row['Phone'];
+        $DonorID=$row['FirstName']. " ".$row['LastName'];
 }
 
 
@@ -207,16 +213,6 @@ $(document).ready(function(){
 
 <!--/footer-->
 
-<!--Feet-->
-
-<div class="feet">
-<div class="container">
-<p class="copy">Company Name Goes Here.. Copyright 2013. All Rights Researved. </p>
-
-</div>
-</div>
-
-<!--/Feet-->
 
     <script src="js/bootstrap.min.js"></script>                 
 </body>

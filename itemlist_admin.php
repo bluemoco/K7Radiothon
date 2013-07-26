@@ -62,7 +62,7 @@ $(document).ready(function(){
     <div class="row-fluid">
      <div class="span6" style="margin-left:30px; width:145px">
     <div class="text-center"><a href="new_item_admin.php?id=<?php echo $_GET['id']; ?>"> <h2>Add new Item</h2>
-     <img src="images/biltong.jpg" alt="add"></a>   </div>
+     <img src="images/adding-products-categories.gif" alt="add"></a>   </div>
    </div>
    </div>
    </div>
@@ -147,16 +147,6 @@ $(document).ready(function(){
     
 	<?php include('footer.php'); ?>
 
-<!--Feet-->
-
-<div class="feet">
-<div class="container">
-<p class="copy">Company Name Goes Here.. Copyright 2013. All Rights Researved. </p>
-
-</div>
-</div>
-
-<!--/Feet-->
 
 
 

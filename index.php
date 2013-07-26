@@ -102,16 +102,7 @@ function chk()
 	<?php include('footer.php'); ?>
 <!--/footer-->
 
-<!--Feet-->
 
-<div class="feet">
-<div class="container">
-<p class="copy">Radiothon.. Copyright 2013. All Rights Researved. </p>
-
-</div>
-</div>
-
-<!--/Feet-->
 
 
 

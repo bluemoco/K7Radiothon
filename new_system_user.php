@@ -193,10 +193,10 @@ function checkemail(strMail){
    <div class="control-group">
     <div class="controls" style="margin-top:20px;">
      <label class="checkbox">
-        <input type="radio" name="role" id="role" checked="checked" value="1">&nbsp;Admin
+        <input type="radio" name="role" id="role" checked="checked" value="1">&nbsp;System Admin
       </label>
        <label class="checkbox">
-        <input type="radio" name="role"  id="role" value="2">&nbsp;Money Capture
+        <input type="radio" name="role"  id="role" value="2">&nbsp;Data Admin
       </label>
       
       <label class="checkbox">
@@ -245,16 +245,6 @@ function checkemail(strMail){
 
 <!--/footer-->
 
-<!--Feet-->
-
-<div class="feet">
-<div class="container">
-<p class="copy">Company Name Goes Here.. Copyright 2013. All Rights Researved. </p>
-
-</div>
-</div>
-
-<!--/Feet-->
 
     <script src="js/bootstrap.min.js"></script>                 
 </body>

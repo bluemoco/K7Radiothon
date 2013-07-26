@@ -3,24 +3,23 @@
 	include("session_active.php"); 
 	
 	if(isset($_GET['bid']))
-	{ 
+	{
 		$_SESSION['bid'] = $_GET['bid'];
 		header("location:new_bid.php");	
 	}
 	
 	//$client = mysql_query("select a.* , b.* , MAX(b.Amount) as amnt from auctionitems as a LEFT JOIN bids as b ON a.AucID = b.AucID WHERE a.AucID = '".$_SESSION['bid']."' Group by a.AucID");
 	
-	$client = mysql_query("select a.* , b.* , c.* , t.* , b.Amount as amnt from auctionitems as a , bids as b , clientinfo as c , town as t 
+	$client = mysql_query("select a.* , b.* , c.* , t.*,b.Anonymous as bid_Anonymous , b.Amount as amnt from auctionitems as a , bids as b , clientinfo as c , town as t 
 	WHERE a.AucID = b.AucID AND b.ReceiptInfo = c.`index` AND c.TownID = t.TownID  AND a.AucID = '".$_SESSION['bid']."' ORDER BY b.Amount DESC LIMIT 1");
 	
 	$cnt = mysql_num_rows($client);
 	
 	if($cnt == 0 )
 	{
-		$client = mysql_query("select a.* , b.* , c.* , t.* , b.Amount as amnt from auctionitems as a , bids as b , clientinfo as c , town as t 
+		$client = mysql_query("select a.* , b.* , c.* , t.* ,b.Anonymous as bid_Anonymous, b.Amount as amnt from auctionitems as a , bids as b , clientinfo as c , town as t 
 		WHERE c.TownID = t.TownID  AND a.AucID = '".$_SESSION['bid']."' ORDER BY b.Amount DESC LIMIT 1");
-		$arr = mysql_fetch_assoc($client);
-		
+		$arr = mysql_fetch_assoc($client);		
 	}
 	else
 	{	
@@ -60,7 +59,7 @@ function chk()
 			     dataType: 'html',
   			     success:   function(data)
 				 {				
-				 	if(data == "Bid added Successfully")
+				 	if(data == "Bid Placed Successfully")
 					{						
 						//window.setTimeout("location='bidlist.php'",2500);
 						
@@ -76,6 +75,12 @@ function chk()
 }
 
 </script>	
+<style type="text/css">
+    .form-horizontal .controls{
+        line-height: normal;
+        padding: 5px;
+    }
+</style>
 </head>
 
 
@@ -134,7 +139,9 @@ function chk()
    <!--/form-->
    </div>
    <?php
-   if(isset($_SESSION['cid']))
+ //echo date("Y-m-d H:i:s")." ". date("Y-m-d H:i:s",  strtotime($arr['CloseDateTime']));
+ //print(date("Y-m-d H:i:s",  strtotime($arr['CloseDateTime'])) < date("Y-m-d H:i:s"));
+   if(isset($_SESSION['cid']) && date("Y-m-d H:i:s",  strtotime($arr['CloseDateTime'])) > date("Y-m-d H:i:s"))
    { ?>
    <!--right side-->
    <form name="frm" id="frm" method="post" onSubmit="return chk()">
@@ -169,9 +176,13 @@ function chk()
 		   <p class="text-info"><?php echo $arr['TownName']; ?></p>
 		   <p class="text-info"><?php echo $arr['Phone']; ?></p>
 		   <p class="text-info"><?php echo $arr['Email']; ?></p>
-		   
-		   <p> <?php echo ($_SESSION['an'] == 1)?'<em>Wishes to stay anonymous</em>':''; ?> </p>
-		 <?php } ?>	
+		   <!--<p>Anonymous -- <?php echo "<pre>";print_r($arr);echo "</pre>";?></p>-->
+		   <p> <?php echo ($_SESSION['an'] == 1 || $arr['bid_Anonymous']==1) ?'<em>Wishes to stay anonymous</em>':''; ?> </p>
+		 <?php } else { ?>	
+                   <div class="text-center">
+		   <h2 class="text-error">No bid placed for this item</h2>
+		    
+                   <?php } ?>
            <div class="clearfix"></div>
 			
 		 </div>
@@ -191,16 +202,6 @@ function chk()
  
 <?php include('footer.php'); ?>
 
-<!--Feet-->
-
-<div class="feet">
-<div class="container">
-<p class="copy">Company Name Goes Here.. Copyright 2013. All Rights Researved. </p>
-
-</div>
-</div>
-
-<!--/Feet-->
 
     <script src="js/bootstrap.min.js"></script>                 
 </body>

@@ -93,7 +93,7 @@ $(document).ready(function(){
 		  <th>Telephone</th>
 		  <th>User Name</th>
 		  <th>Town</th>
-		  <th>Donnor</th>
+		  <th>Donor</th>
 		  <th>Edit</th>
 		</tr>
 	  </thead>
@@ -172,16 +172,7 @@ $(document).ready(function(){
 
 <!--/footer-->
 
-<!--Feet-->
 
-<div class="feet">
-<div class="container">
-<p class="copy">Company Name Goes Here.. Copyright 2013. All Rights Researved. </p>
-
-</div>
-</div>
-
-<!--/Feet-->
     <script src="js/bootstrap.min.js"></script>                 
 </body>
 </html>

@@ -13,8 +13,8 @@ function default_js_css() { ?>
 	<meta charset="utf-8">
 	
 	<title>Home</title>
-	<link  href="style.css" rel="stylesheet" media="screen">
-	<link href="css/bootstrap.css" rel="stylesheet" media="screen">
+	<link  href="style_new.css" rel="stylesheet" media="screen">
+	<link href="css/bootstrap_new.css" rel="stylesheet" media="screen">
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--[if lt IE 9]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
