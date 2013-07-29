@@ -17,13 +17,14 @@
 	
 	if($cnt == 0 )
 	{
-		$client = mysql_query("select a.* , b.* , c.* , t.* ,b.Anonymous as bid_Anonymous, b.Amount as amnt from auctionitems as a , bids as b , clientinfo as c , town as t 
-		WHERE c.TownID = t.TownID  AND a.AucID = '".$_SESSION['bid']."' ORDER BY b.Amount DESC LIMIT 1");
-		$arr = mysql_fetch_assoc($client);		
+		/*$client = mysql_query("select a.* , b.* , c.* , t.* ,b.Anonymous as bid_Anonymous, b.Amount as amnt from auctionitems as a , bids as b , clientinfo as c , town as t 
+		WHERE c.TownID = t.TownID  AND a.AucID = '".$_SESSION['bid']."' ORDER BY b.Amount DESC LIMIT 1");*/
+                $client=mysql_query("SELECT * from auctionitems where AucID = '".$_SESSION['bid']."'");
+                $arr = mysql_fetch_assoc($client);		
 	}
 	else
 	{	
-		$arr = mysql_fetch_assoc($client);
+                $arr = mysql_fetch_assoc($client);
 	}
 	
 	

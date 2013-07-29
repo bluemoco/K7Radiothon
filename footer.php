@@ -82,7 +82,7 @@
 
 <div class="feet">
 <div class="container">
-<p class="copy">Radiothon. Copyright 2013. All Rights Researved. </p>
+<p class="copy">Radiothon. Copyright 2013. All Rights Reserved. </p>
 
 </div>
 </div>
