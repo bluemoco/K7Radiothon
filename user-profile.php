@@ -90,7 +90,7 @@
                                     </tr>
                                     <tr>
                                         <td><h2 align="right">Phone:</h2></td>
-                                        <td class="leftp15"><?php echo $arrclient['Phone']; ?>55 94 454</td>
+                                        <td class="leftp15"><?php echo $arrclient['Phone']; ?></td>
                                     </tr>
                                 </table>
 
