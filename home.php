@@ -88,7 +88,7 @@ $(document).ready(function(){
    
 	 	<div class="pagination pagination-right">
 		<ul>
-		<?php echo $o__pager->getPagerString('placebid.php'.$qurey_string); ?>
+		<?php echo $o__pager->getPagerString('home.php'.$qurey_string); ?>
 		</ul>
 	</div>
 

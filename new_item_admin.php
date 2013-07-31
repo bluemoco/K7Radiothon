@@ -120,7 +120,7 @@ $(document).ready(function(){
   <div class="control-group">
     <label class="control-label" for="inputEmail">Donor</label>
     <div class="controls">
-	  <input type="text" id="DonorID" name="DonorID" value="<?php echo $DonorID ?>">
+	  <input type="text" id="DonorID" name="DonorID" value="<?php echo $DonorID ?>" readonly>
 		
 	  
     </div>
@@ -134,7 +134,7 @@ $(document).ready(function(){
    <div class="control-group">
     <label class="control-label" for="inputPassword">Phone</label>
     <div class="controls">
-      <input type="text" id="TelephoneNumber" name="TelephoneNumber" value="<?php echo $TelephoneNumber; ?>" >
+      <input type="text" id="TelephoneNumber" name="TelephoneNumber" value="<?php echo $TelephoneNumber; ?>" readonly >
     </div>
   </div>
     <div class="control-group">

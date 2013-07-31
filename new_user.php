@@ -42,12 +42,18 @@ $(document).ready(function(){
 function chk()
 {
 	$('#msg').html('');
-	if(isNaN(document.getElementById('Phone').value) == true || document.getElementById('Phone').value == '')
+        var phoneRegex=/^(0[6|8][1-9][0-9]*)$/;
+	if(document.getElementById('Phone').value == '')
 	{
 		alert("Please Enter phone");
 		document.getElementById('Phone').focus();
 		return false;		
 	}
+        if(isNaN(document.getElementById('Phone').value) == true || !phoneRegex.test(document.getElementById('Phone').value)){
+            alert("Phone number must start with 06/08 and no space allowed");
+            document.getElementById('Phone').focus();
+            return false;
+        }
 	if(document.getElementById('FirstName').value == '')
 	{
 		alert("Please Enter First Name");

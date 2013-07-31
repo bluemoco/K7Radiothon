@@ -43,9 +43,9 @@ if(!empty($orderByArray)){
 }
 
 $limit="";
-if($condition==""){
+/*if($condition==""){
     $limit="LIMIT 10";
-}
+}*/
 
 //2013-05-23 10:30:00 Time format in mysql
 $currentDateTime = date('Y-m-d H:i:s');
