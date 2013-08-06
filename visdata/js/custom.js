@@ -1,0 +1,34 @@
+ jQuery(document).ready(function() {
+
+/*----------------------------------------------------*/
+/*	Back To Top Button
+/*----------------------------------------------------*/
+		var pxShow = 300;//height on which the button will show
+		var fadeInTime = 400;//how slow/fast you want the button to show
+		var fadeOutTime = 400;//how slow/fast you want the button to hide
+		var scrollSpeed = 300;//how slow/fast you want the button to scroll to top. can be a value, 'slow', 'normal' or 'fast'
+
+
+		$("#first_circle3").hover(function() {	
+		$var = "dfsdfsd";
+        
+		   alert($var);
+		$.ajax({
+			url: "../ajax/create_product_form.php",
+			type: 'GET',			
+			dataType: 'html',
+			data:mydata,
+			beforeSend: function() {},
+			success: function(data, textStatus, xhr) {				
+				$('.primary').html(data);				
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				alert("Load Failed!");
+			}
+		});
+           
+			
+		return false;
+
+	});
+});

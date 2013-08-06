@@ -351,18 +351,11 @@ setlocale(LC_MONETARY, 'en_US');
 </div>
 
 
-<!--ribbon-->
-<div class="ribbon">
-    <div class="container">
-        <h1>"Lorem Ipsum is simply dummy text of the printing and typesetting industry."</h1>
-    </div>
-</div>
-<!--/ribbon-->
+
 
 <!--footer-->
-<div class="footer">
     <?php include('footer.php'); ?>
-</div>
+
 <!--/footer-->
 
 <!--Feet-->

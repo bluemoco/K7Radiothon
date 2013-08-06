@@ -31,7 +31,7 @@ $reportData = "";
 $dataTableData = "";
 while ($report = mysql_fetch_array($pledgeQueryResult)) {
     $status=($report['MoneyRecovered']==1)?'Money Recovered':(($report['MoneyWrittenOff']==1)?'Money Written Off':'-');
-    $dataTableData.="['" . $report['ChallengeID'] . "','" . $report['type'] . "','" . $report['FirstName'] . " " . $report['LastName'] . "','" . $report['Amount'] . "','" . $report['Fname'] . " " . $report['Lname'] . "','".$status."'],";
+    $dataTableData.="['" . $report['ChallengeID'] . "','" . $report['type'] . "','" . addslashes($report['FirstName'] . " " . $report['LastName']) . "','" . $report['Amount'] . "','" . addslashes($report['Fname'] . " " . $report['Lname']) . "','".$status."'],";
     $reportData.="<tr>";
     $reportData.="<td>" . $report['ChallengeID'] . "</td>";
     $reportData.="<td>" . $report['type'] . "</td>";
@@ -43,7 +43,7 @@ while ($report = mysql_fetch_array($pledgeQueryResult)) {
 }
 while ($report = mysql_fetch_array($donationQueryResult)) {
     $status=($report['MoneyRecovered']==1)?'Money Recovered':(($report['MoneyWrittenOff']==1)?'Money Written Off':'-');
-    $dataTableData.="['" . $report['PledgeID'] . "','" . $report['type'] . "','" . $report['FirstName'] . " " . $report['LastName'] . "','" . $report['Amount'] . "','" . $report['Fname'] . " " . $report['Lname'] . "','".$status."'],";
+    $dataTableData.="['" . $report['PledgeID'] . "','" . $report['type'] . "','" . addslashes($report['FirstName'] . " " . $report['LastName']) . "','" . $report['Amount'] . "','" . addslashes($report['Fname'] . " " . $report['Lname']) . "','".$status."'],";
     $reportData.="<tr>";
     $reportData.="<td>" . $report['PledgeID'] . "</td>";
     $reportData.="<td>" . $report['type'] . "</td>";
@@ -55,7 +55,7 @@ while ($report = mysql_fetch_array($donationQueryResult)) {
 }
 while ($report = mysql_fetch_array($bidQueryResult)) {
     $status=($report['MoneyRecovered']==1)?'Money Recovered':(($report['MoneyWrittenOff']==1)?'Money Written Off':'-');
-    $dataTableData.="['" . $report['BidID'] . "','" . $report['type'] . "','" . $report['FirstName'] . " " . $report['LastName'] . "','" . $report['Amount'] . "','" . $report['Fname'] . " " . $report['Lname'] . "','".$status."'],";
+    $dataTableData.="['" . $report['BidID'] . "','" . $report['type'] . "','" . addslashes($report['FirstName'] . " " . $report['LastName']) . "','" . $report['Amount'] . "','" . addslashes($report['Fname'] . " " . $report['Lname']) . "','".$status."'],";
     $reportData.="<tr>";
     $reportData.="<td>" . $report['BidID'] . "</td>";
     $reportData.="<td>" . $report['type'] . "</td>";
@@ -97,7 +97,7 @@ while ($proxy = mysql_fetch_array($proxyComboQueryResult)) {
         <script type="text/javascript" charset="utf-8">
             /* Data set - can contain whatever information you want */
             var aDataSet = [
-<?= $dataTableData; ?>
+<?=substr($dataTableData,0,-1); ?>
                     ];
 			
                     $(document).ready(function() {

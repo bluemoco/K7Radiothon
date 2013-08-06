@@ -25,7 +25,11 @@ $(document).ready(function(){
 	 jQuery('#btn2').addClass('btn-primary');
 });
 </script>
-
+<style type="text/css">
+    .expired{
+        color: red !important;
+    }
+</style>
 </head>
 
 
@@ -124,8 +128,9 @@ $(document).ready(function(){
 	} else {
 		$amn = "0.00";
 	}
+        $class=(date("Y-m-d H:i:s",  strtotime($arrclient['CloseDateTime'])) > date("Y-m-d H:i:s"))?"":"class='expired'";
 	 ?> 
-	 	<tr>
+	 	<tr <?=$class; ?>>
                   <td><a href="new_bid.php?bid=<?php echo $arrclient['AucID']; ?>"><?php echo $arrclient['AucID']; ?></a></td>
 		  <td><?php echo $arrclient['TelephoneNumber']; ?></td>
 		  <td><?php echo $arrclient['ItemName']; ?></td>

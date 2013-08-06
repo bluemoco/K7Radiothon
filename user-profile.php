@@ -100,14 +100,17 @@
                         </div>
                     </div>
 <?php
+$currentDateTime = date('Y-m-d H:i:s');
 // bids
 $q = "SELECT * 
-FROM  `bids` a
-WHERE  `ReceiptInfo` =  " . $id."
+FROM auctionitems AS a, bids AS b, proxybidderinfo pbi
+WHERE a.AucID = b.AucID
+AND b.ProxyID = pbi.ProxyID 
+AND b.ReceiptInfo = " . $id."
+AND a.`CloseDateTime`<'" . $currentDateTime . "'
 AND Amount = ( 
 SELECT MAX(Amount) 
-FROM bids b
-WHERE b.BidID = a.`BidID`)";
+FROM bids c WHERE b.AucID = c.`AucID`)";
 $clientBids = mysql_query($q);
 $clientTotalBids = mysql_num_rows($clientBids);
 
@@ -181,14 +184,17 @@ $clientTotalDonations = mysql_num_rows($clientDonations);
 
 
 <?php
+
+
 $clientBids = mysql_query("SELECT * 
 FROM auctionitems AS a, bids AS b, proxybidderinfo pbi
 WHERE a.AucID = b.AucID
 AND b.ProxyID = pbi.ProxyID 
 AND b.ReceiptInfo = " . $id."
+AND a.`CloseDateTime`<'" . $currentDateTime . "'
 AND Amount = ( 
 SELECT MAX(Amount) 
-FROM bids c WHERE b.BidID = c.`BidID`)");
+FROM bids c WHERE b.AucID = c.`AucID`)");
 
 while ($clientBidDetails = mysql_fetch_array($clientBids)) {
     ?>
@@ -197,7 +203,7 @@ while ($clientBidDetails = mysql_fetch_array($clientBids)) {
                                     <td><?php echo $clientBidDetails['ItemName']; ?></td>
                                     <td><?php echo date('d/m/Y', strtotime($clientBidDetails['LoaddateTime'])); ?></td>
                                     <td><?php echo $clientBidDetails['startprice']; ?></td>
-                                    <td><?php echo $clientBidDetails['startprice']; ?></td>
+                                    <td><?php echo $clientBidDetails['Amount']; ?></td>
                                     <td><?php echo $clientBidDetails['Fname']." ".$clientBidDetails['Lname']; ?></td>
                                 </tr>
     <?php

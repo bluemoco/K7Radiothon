@@ -279,7 +279,7 @@ $townCombo.='</select>';
 
                 <div class="pagination pagination-right">
                     <ul>
-                        <?php echo $o__pager->getPagerString('public_new.php' . $qurey_string); ?>
+                        <?php echo $o__pager->getPagerString('public.php' . $qurey_string); ?>
                     </ul>
                 </div>
                 <div id="countdown" class="countdown"></div>

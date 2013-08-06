@@ -198,7 +198,7 @@ $("#receptNumber").bind("change",function() {
                                     </tr>
                                     <tr>
                                         <td><h2 align="right">Amount:</h2></td>
-                                        <td class="leftp15">$ <?php echo $userid['Amount'];?></td>
+                                        <td class="leftp15">N$ <?php echo $userid['Amount'];?></td>
                                     </tr>
                                     <?php
                                     if ($_GET['activity'] == 'Bid') {
@@ -209,7 +209,7 @@ $("#receptNumber").bind("change",function() {
                                         </tr>
                                         <tr>
                                             <td><h2 align="right">Item:</h2></td>
-                                            <td class="leftp15"><?php echo $userid['ItemName'];?></td>
+                                            <td class="leftp15" style="line-height: normal;"><?php echo $userid['ItemName'];?></td>
                                         </tr>
                                         <?php
                                     }
@@ -234,7 +234,7 @@ $("#receptNumber").bind("change",function() {
                                     ?>
                                     <table width="100%" border="0">
                                         <tr>
-                                            <td><img style="width:320px;" src="uploads/<?php if($userid['Photo']==""){echo "uploads/big_logo.png";}else{echo $userid['Photo'];}?>"></td>
+                                            <td><img style="width:320px;" src="uploads/<?php if($userid['Photo']==""){echo "VerticalLogo.png";}else{echo $userid['Photo'];}?>"></td>
                                         </tr>
                                         <tr>
                                             <td><h2 align="center"><?php echo $userid['ItemName'];?></h2></td>
