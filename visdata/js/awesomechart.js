@@ -81,7 +81,7 @@ function AwesomeChart(canvasElementId){
     
     this.labelFillStyle = 'rgb(220, 36, 0)';
     this.labelFont = 'sans-serif';
-    this.labelFontHeight = 12;
+    this.labelFontHeight = 15;
     this.labelFontStyle = '';
     
     this.dataValueFillStyle = '#333';
@@ -364,9 +364,29 @@ function AwesomeChart(canvasElementId){
             context.font = this.dataValueFontStyle + ' ' + this.dataValueFontHeight + 'px '+ this.dataValueFont;
             context.fillStyle = this.dataValueFillStyle;
             context.textAlign = 'center';
-            if(di>=0){
+            if(di>=0){				
                 context.textBaseline = 'bottom';
-                context.fillText(di, x + barWidth/2, barBottomY - barHeight - this.labelMargin - this.dataValueMargin, barWidth);
+                				
+				var value = new Array();
+				var index = 0;
+				while(di>1000)
+				{
+                   value[index] = di % 1000;
+				   di = (di - value[index]) / 1000;
+                   index++;
+				}
+                var present_value = di;
+
+				while(index > 0)
+				{
+				   if(value[index-1]!=0)
+                     present_value = present_value + "," + value[index-1];
+				   else 
+					   present_value = present_value + ",000";
+				   index--;
+				}
+
+                context.fillText(present_value, x + barWidth/2, barBottomY - barHeight - this.labelMargin - this.dataValueMargin, barWidth);
             }else{
                 context.textBaseline = 'top';
                 context.fillText(di, x + barWidth/2, barBottomY - barHeight + this.labelMargin + this.dataValueMargin, barWidth);
